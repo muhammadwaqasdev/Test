@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_starter_app/src/models/wrappers/response_wrapper.dart';
-import 'package:flutter_starter_app/src/services/local/flavor_service.dart';
+import 'package:tech_it/src/models/wrappers/response_wrapper.dart';
+import 'package:tech_it/src/services/local/flavor_service.dart';
 
 const _defaultConnectTimeout = Duration.millisecondsPerMinute;
 const _defaultReceiveTimeout = Duration.millisecondsPerMinute;

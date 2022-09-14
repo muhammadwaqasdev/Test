@@ -1,4 +1,4 @@
-# Flutter starter app with MVVM stacked architecture and RxDart 
+# Flutter starter app with MVVM stacked architecture and RxDart
 
 ## Setup
 
@@ -14,7 +14,7 @@ dart setup/setup.dart --packageName=com.yourpackagename
 --appName for app name on android/ios
 ```
 
-## Special Option to replace dart bundle name 
+## Special Option to replace dart bundle name
 
 ```shell
 --dartBundleName="new_bundle_name,old_bundle_name"

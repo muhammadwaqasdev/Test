@@ -1,5 +1,5 @@
-import 'package:flutter_starter_app/src/services/remote/network_exceptions.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tech_it/src/services/remote/network_exceptions.dart';
 
 part 'api_result.freezed.dart';
 

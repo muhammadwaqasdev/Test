@@ -1,63 +1,92 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/src/configs/app_setup.router.dart';
-import 'package:flutter_starter_app/src/services/local/navigation_service.dart';
-import 'package:flutter_starter_app/src/shared/spacing.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:flutter_starter_app/src/base/utils/utils.dart';
+import 'package:stacked/stacked.dart';
+import 'package:tech_it/generated/images.asset.dart';
+import 'package:tech_it/src/services/local/navigation_service.dart';
+import 'package:tech_it/src/shared/app_screen.dart';
+import 'package:tech_it/src/shared/buttons.dart';
+import 'package:tech_it/src/styles/app_colors.dart';
+import 'package:tech_it/src/styles/text_theme.dart';
+import 'package:tech_it/src/views/splash/splash_view_model.dart';
 
 class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Nested Route Demo with Stacked",
-                style: context.appTextTheme().headline4,
-                textAlign: TextAlign.center),
-          ),
-          VerticalSpacing(10),
-          ElevatedButton(
-              onPressed: NavService.dashboard,
-              child: Text("Goto Dashboard with Root Navigator")),
-          Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 0),
-                          spreadRadius: 1,
-                          blurRadius: 30,
-                          color: Colors.grey)
-                    ]),
-                width: 300,
-                height: 400,
-                child: Navigator(
-                  key: NavService.nestedNavKey,
-                  observers: [
-                    GetObserver((_) {}, Get.routing)
-                  ], // <----- this added
-                  onGenerateRoute: (settings) {
-                    return NavService.onSplashViewGenerateRoute(
-                        settings, Routes.splashView);
-                  },
-                ),
+    return ViewModelBuilder<SplashViewModel>.reactive(
+      builder: (context, model, child) => AppScreen(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              height: 50,
+            ),
+            Image.asset(
+              Images.traxTrackingLogo,
+              width: 150,
+              height: 150,
+            ),
+            Center(
+              child: Column(
+                children: [
+                  RichText(
+                      text: TextSpan(
+                          text: "Locate where\nis your ",
+                          style: TextStyling.mainTitle
+                              .copyWith(color: AppColors.primary),
+                          children: [
+                        TextSpan(
+                          text: "Child",
+                          style: TextStyling.mainTitle
+                              .copyWith(color: AppColors.secondary),
+                        ),
+                        TextSpan(
+                          text: "!",
+                          style: TextStyling.mainTitle
+                              .copyWith(color: AppColors.primary),
+                        )
+                      ])),
+                  Container(
+                    width: 70,
+                    decoration: BoxDecoration(
+                        border: Border(
+                            top: BorderSide(
+                                color: AppColors.secondary, width: 2))),
+                  ),
+                ],
               ),
-            ],
-          ),
-          Spacer(),
-        ],
+            ),
+            MainButton(
+              title: "Login",
+              onTap: () {
+                NavService.signIn();
+              },
+              color: AppColors.primaryLight,
+              textColor: AppColors.primary,
+            ),
+            Column(
+              children: [
+                Text(
+                  "Don't have an account",
+                  style: TextStyling.text,
+                ),
+                InkWell(
+                  onTap: () {
+                    NavService.signup();
+                  },
+                  child: Text(
+                    "Create an account",
+                    style:
+                        TextStyling.heading1.copyWith(color: AppColors.primary),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
+      viewModelBuilder: () => SplashViewModel(),
     );
   }
 }
